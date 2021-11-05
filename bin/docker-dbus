@@ -1,0 +1,90 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+################################################################################
+# AppArmor profile for Docker applications that use dconf and D-bus.
+# It is based on the info that was gleaned from
+# https://askubuntu.com/questions/485547/contain-docker-engine-with-apparmor
+# and updated with info from the Docker apparmor documentation 
+# https://docs.docker.com/engine/security/apparmor/#understand-the-policies
+# https://github.com/moby/moby/blob/master/profiles/apparmor/template.go
+#
+# The template above refers to the docker-default AppArmor profile and the
+# profile here is simply docker-default plus the addition of dbus-session
+# and dbus-accessibility.
+#
+# To load a new profile into AppArmor for use with containers:
+# sudo apparmor_parser -r -W /path/to/docker-gui/docker-dbus
+#
+# Then, run the custom profile with --security-opt like so:
+# docker run --rm -it --security-opt apparmor=docker-dbus hello-world
+#
+# # stop apparmor
+# $ sudo  /etc/init.d/apparmor stop
+# # unload the profile
+# $ sudo apparmor_parser -R /path/to/profile
+# # start apparmor
+# $ sudo /etc/init.d/apparmor start
+#
+# To persist changes across reboots:
+# sudo cp /path/to/docker-gui/docker-dbus /etc/apparmor.d/.
+# # reboot
+# sudo shutdown -r now
+################################################################################
+
+#include <tunables/global>
+
+profile docker-dbus flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+  #include <abstractions/dbus>
+  #include <abstractions/dbus-session>
+  #include <abstractions/dbus-accessibility>
+
+  network,
+  capability,
+  file,
+  umount,
+
+  # Host (privileged) processes may send signals to container processes.
+  signal (receive) peer=unconfined,
+
+  # Container processes may send signals amongst themselves.
+  signal (send,receive) peer=docker-dbus,
+  signal (send,receive) peer=docker-default,
+
+  deny @{PROC}/* w,   # deny write for all files directly in /proc (not in a subdir)
+  # deny write to files not in /proc/<number>/** or /proc/sys/**
+  deny @{PROC}/{[^1-9],[^1-9][^0-9],[^1-9s][^0-9y][^0-9s],[^1-9][^0-9][^0-9][^0-9]*}/** w,
+  deny @{PROC}/sys/[^k]** w,  # deny /proc/sys except /proc/sys/k* (effectively /proc/sys/kernel)
+  deny @{PROC}/sys/kernel/{?,??,[^s][^h][^m]**} w,  # deny everything except shm* in /proc/sys/kernel/
+  deny @{PROC}/sysrq-trigger rwklx,
+  deny @{PROC}/kcore rwklx,
+  deny mount,
+  deny /sys/[^f]*/** wklx,
+  deny /sys/f[^s]*/** wklx,
+  deny /sys/fs/[^c]*/** wklx,
+  deny /sys/fs/c[^g]*/** wklx,
+  deny /sys/fs/cg[^r]*/** wklx,
+  deny /sys/firmware/** rwklx,
+  deny /sys/kernel/security/** rwklx,
+
+  # suppress ptrace denials when using 'docker ps' or using 'ps' inside a container
+  ptrace (trace,read) peer=docker-dbus,
+  ptrace (trace,read) peer=docker-default,
+}

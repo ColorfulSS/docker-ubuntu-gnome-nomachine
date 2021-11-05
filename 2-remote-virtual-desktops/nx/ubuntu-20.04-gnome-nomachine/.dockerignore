@@ -1,0 +1,9 @@
+
+# First exclude everything
+**
+*.*
+
+# Then explicitly whitelist
+!xorg.conf
+!*.sh
+
