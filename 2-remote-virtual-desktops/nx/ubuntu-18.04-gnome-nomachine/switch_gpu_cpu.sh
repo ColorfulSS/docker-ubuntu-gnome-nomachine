@@ -55,7 +55,7 @@ else
     sudo rm /etc/X11/xorg.conf
   fi
   # 下载配置文件
-  sudo cd /etc/X11
+  cd /etc/X11
   sudo wget https://git.ustc.edu.cn/Colorful/file_download/-/raw/main/xorg.conf
   sudo chmod 755 xorg.conf
 
