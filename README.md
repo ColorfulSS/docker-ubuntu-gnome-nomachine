@@ -141,6 +141,7 @@ Nomachine连接速度提升
 
 #### 2.7 中文语言支持问题
 参考连接：https://blog.csdn.net/weixin_39792252/article/details/80415550
+中文语言支持脚本 -> 进入2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/language.sh 运行脚本
 ```bash
 # 安装中文支持包language-pack-zh-hans：
 sudo apt-get install language-pack-zh-hans
