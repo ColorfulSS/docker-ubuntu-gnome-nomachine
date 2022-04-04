@@ -56,9 +56,9 @@ wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/
 # 如无法访问请使用如下链接  
 wget https://git.ustc.edu.cn/Colorful/file_download/-/raw/main/ubuntuSimple.sh
 # 增加可执行权限
-sudo chmod +x ubuntuSimple.sh
+chmod +x ubuntuSimple.sh
 # 执行自动安装配置脚本 - 需要根据提示输入相关信息  
-sudo ./ubuntuSimple.sh  
+./ubuntuSimple.sh  
 ```
 ![](img/AutoScript.png)
 
@@ -139,7 +139,7 @@ Nomachine连接速度提升
 * 1. 软件设置：https://forums.nomachine.com/topic/recommended-settings-for-fast-local-lan-connections-only 
 * 2. 客户端设置硬件加速：https://knowledgebase.nomachine.com/FR04N03097  
 
-#### 2.7 中文语言支持问题
+#### 2.7 中文语言支持问题 (Docker Container内运行)
 参考连接：https://blog.csdn.net/weixin_39792252/article/details/80415550
 中文语言支持脚本 -> 进入2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/language.sh 运行脚本
 ```bash
