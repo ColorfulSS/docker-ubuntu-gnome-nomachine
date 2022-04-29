@@ -110,11 +110,11 @@ do
 done
 echo "开始自动安装显卡驱动并配置虚拟显示器..."
 # 开始安装配置
-echo [ $NvidiaDriver=="Tesla" ]
-if [ $NvidiaDriver=="Tesla" ]
+echo [ $NvidiaDriver == "Tesla" ]
+if [ $NvidiaDriver == "Tesla" ]
 then
     docker exec -it $CONTAINER /home/Tesla-XorgDisplaySettingAuto.sh
-elif [ $NvidiaDriver=="GeForce" ]
+elif [ $NvidiaDriver == "GeForce" ]
 then
     docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto.sh
 else
