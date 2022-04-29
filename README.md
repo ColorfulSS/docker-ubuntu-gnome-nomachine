@@ -59,6 +59,8 @@ wget https://git.ustc.edu.cn/Colorful/file_download/-/raw/main/ubuntuSimple.sh
 chmod +x ubuntuSimple.sh
 # 执行自动安装配置脚本 - 需要根据提示输入相关信息  
 ./ubuntuSimple.sh  
+
+备注：运行ubuntuSimple.sh脚本结束后，会一直停留在命令行终端界面，直接ctrl+c终止即可
 ```
 ![](img/AutoScript.png)
 
@@ -101,6 +103,8 @@ docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto.sh
 # 容器名称: CONTAINER 进入root账户
 docker exec -itd $CONTAINER bash  
 ```
+
+
 #### 2.3 连接容器 
 SSH连接 - 考虑到安全问题-未安装SSH [如有需求请自行安装 并配置登陆安全策略]  
 ```bash
