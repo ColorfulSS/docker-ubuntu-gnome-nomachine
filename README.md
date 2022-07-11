@@ -163,7 +163,7 @@ sudo locale-gen
 sudo apt-get install fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming
 ```
 #### 2.8 渲染模式/GPU卡切换  
-
+* 注：切换模式/GPU卡脚本必须在命令行中运行，请勿在虚拟桌面中运行，否则会导致脚本运行失败并卡死虚拟桌面  
 
 ##### 2.8.1 渲染模式切换  
 ```bash
@@ -175,7 +175,7 @@ wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/
 
 ##### 2.8.2 渲染GPU卡切换  
 ```bash
-# 下载切换渲染模式脚本：
+# 下载切换Gpu卡脚本：
 wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/RenderGpuCard.sh
 # 运行脚本：
 ./RenderGpuCard.sh $渲染模式 $ GPU卡号
