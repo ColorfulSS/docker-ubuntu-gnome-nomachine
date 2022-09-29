@@ -57,6 +57,8 @@ if [ "$RenderType" == "Gpu" ]; then
   BUS_ID=PCI:$((16#${ARR_ID[1]})):$((16#${ARR_ID[2]})):$((16#${ARR_ID[3]}))
   export MODELINE=$(cvt -r ${SIZEW} ${SIZEH} | sed -n 2p)
   if [ "$NvidiaDriver" == "GeForce" ]; then
+        echo $NvidiaDriver
+        echo "Virtual DISPLAY DP-0"
         sudo nvidia-xconfig --virtual="${SIZEW}x${SIZEH}" --depth="$CDEPTH" --allow-empty-initial-configuration --busid="$BUS_ID" --no-multigpu --connected-monitor=DP-0
   else
         sudo nvidia-xconfig --virtual="${SIZEW}x${SIZEH}" --depth="$CDEPTH" --allow-empty-initial-configuration --busid="$BUS_ID"
