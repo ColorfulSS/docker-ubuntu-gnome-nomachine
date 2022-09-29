@@ -117,7 +117,10 @@ then
     docker exec -it $CONTAINER /home/Tesla-XorgDisplaySettingAuto.sh
 elif [ $NvidiaDriver == "GeForce" ]
 then
-    docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto.sh
+# GeForce系列显卡使用更新后的脚本文件
+    docker exec -it $CONTAINER curl -o GeForce-XorgDisplaySettingAuto_DP.sh https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/GeForce-XorgDisplaySettingAuto.sh
+    docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto_DP.sh
+    #docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto.sh
 else
     echo "当前显卡类型不在自动脚本支持范围内-请手动修改脚本安装配置"
 fi
