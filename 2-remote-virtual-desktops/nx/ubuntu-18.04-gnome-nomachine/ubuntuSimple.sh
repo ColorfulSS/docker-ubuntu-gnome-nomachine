@@ -95,6 +95,7 @@ docker run -d \
     --cap-add=SYS_ADMIN --cap-add=SYS_BOOT \
     -e CreateUserAccount=$CreateUserAccount \
     -e RenderType=$RenderType \
+    -e NvidiaDriver=$NvidiaDriver \
     -v /sys/fs/cgroup:/sys/fs/cgroup \
     -v $WorkSpaceBind:/data \
     $IMAGE /sbin/init
