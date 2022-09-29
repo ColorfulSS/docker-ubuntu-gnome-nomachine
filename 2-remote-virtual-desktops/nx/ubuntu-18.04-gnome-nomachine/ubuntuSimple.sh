@@ -67,6 +67,14 @@ do
     read -p "输入内容为空，请重新输入:" RenderType
 done
 
+# 自动安装配置显卡驱动脚本
+# 判断；显卡类型，安装对应驱动程序
+echo "Tesla系列: V100 A100 ... | GeForce系列: 3090 2080 ..."
+read -p "请确认显卡系列[例: V100输入Tesla / RTX3090输入GeForce]:" NvidiaDriver
+while test -z "$NvidiaDriver"
+do
+    read -p "输入内容为空，请重新输入:" NvidiaDriver
+done
 
 # Default
 # IMAGE=ubuntu-gnome-nomachine:18.04
@@ -101,14 +109,7 @@ docker run -d \
     $IMAGE /sbin/init
 
 echo "Docker Container 启动成功"
-# 自动安装配置显卡驱动脚本
-# 判断；显卡类型，安装对应驱动程序
-echo "Tesla系列: V100 A100 ... | GeForce系列: 3090 2080 ..."
-read -p "请确认显卡系列[例: V100输入Tesla / RTX3090输入GeForce]:" NvidiaDriver
-while test -z "$NvidiaDriver"
-do
-    read -p "输入内容为空，请重新输入:" NvidiaDriver
-done
+
 echo "开始自动安装显卡驱动并配置虚拟显示器..."
 # 开始安装配置
 echo [ $NvidiaDriver == "Tesla" ]
