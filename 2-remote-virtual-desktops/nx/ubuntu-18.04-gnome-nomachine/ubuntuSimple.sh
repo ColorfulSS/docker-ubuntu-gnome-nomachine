@@ -120,6 +120,7 @@ elif [ $NvidiaDriver == "GeForce" ]
 then
 # GeForce系列显卡使用更新后的脚本文件
     docker exec -it $CONTAINER curl -o GeForce-XorgDisplaySettingAuto_DP.sh https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-18.04-gnome-nomachine/GeForce-XorgDisplaySettingAuto.sh
+    docker exec -it $CONTAINER chmod +x /home/GeForce-XorgDisplaySettingAuto_DP.sh
     docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto_DP.sh
     #docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto.sh
 else
