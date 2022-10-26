@@ -112,7 +112,7 @@ docker run -d \
     -e CreateUserAccount=$CreateUserAccount \
     -e RenderType=$RenderType \
     -e NvidiaDriver=$NvidiaDriver \
-    -e NVIDIA_VISIBLE_DEVICES$NVIDIA_VISIBLE_DEVICES \
+    -e NVIDIA_VISIBLE_DEVICES=$NVIDIA_VISIBLE_DEVICES \
     -v /sys/fs/cgroup:/sys/fs/cgroup \
     -v $WorkSpaceBind:/data \
     $IMAGE /sbin/init
