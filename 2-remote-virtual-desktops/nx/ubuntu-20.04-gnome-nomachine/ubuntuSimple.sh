@@ -18,7 +18,7 @@
 # under the License.
 #
 # 镜像名称 IMAGE
-read -p "请输入需要使用的镜像名称（例: colorfulsky/ubuntu-gnome-nomachine:20.04）:" IMAGE
+read -p "请输入需要使用的镜像名称（例: colorfulsky/ubuntu-gnome-nomachine:18.04）:" IMAGE
 while test -z "$IMAGE"
 do
     read -p "请输入内容为空，请重新输入:" IMAGE
@@ -67,6 +67,14 @@ do
     read -p "输入内容为空，请重新输入:" RenderType
 done
 
+# 选择使用渲染显卡号
+echo "======Gpu渲染显卡选择======"
+read -p "请选择渲染显卡号（例:0 or 1 2 3 ...）:" NVIDIA_VISIBLE_DEVICES
+while test -z "$NVIDIA_VISIBLE_DEVICES"
+do
+    read -p "输入内容为空，请重新输入:" NVIDIA_VISIBLE_DEVICES
+done
+
 # 自动安装配置显卡驱动脚本
 # 判断；显卡类型，安装对应驱动程序
 echo "Tesla系列: V100 A100 ... | GeForce系列: 3090 2080 ..."
@@ -76,14 +84,14 @@ do
     read -p "输入内容为空，请重新输入:" NvidiaDriver
 done
 
-
 # Default
-# IMAGE=ubuntu-gnome-nomachine:20.04
-# CONTAINER=ubuntu-nomachine20
-# NomachineBindPort=25008
-# SshBindPort=24001
+# IMAGE=ubuntu-gnome-nomachine:18.04
+# CONTAINER=ubuntu-nomachine-testmod
+# NomachineBindPort=25009
+# SshBindPort=24002
 # WorkSpaceBind=/data/workspace/youguoliang
 # CreateUserAccount=colorful
+
 # Launch container as root to init core Linux services and
 # launch the Display Manager and greeter. Switches to
 # unprivileged user after login.
@@ -104,11 +112,13 @@ docker run -d \
     -e CreateUserAccount=$CreateUserAccount \
     -e RenderType=$RenderType \
     -e NvidiaDriver=$NvidiaDriver \
+    -e NVIDIA_VISIBLE_DEVICES$NVIDIA_VISIBLE_DEVICES \
     -v /sys/fs/cgroup:/sys/fs/cgroup \
     -v $WorkSpaceBind:/data \
     $IMAGE /sbin/init
-    
+
 echo "Docker Container 启动成功"
+
 echo "开始自动安装显卡驱动并配置虚拟显示器..."
 # 开始安装配置
 echo [ $NvidiaDriver == "Tesla" ]
@@ -118,7 +128,7 @@ then
 elif [ $NvidiaDriver == "GeForce" ]
 then
 # GeForce系列显卡使用更新后的脚本文件
-    docker exec -it $CONTAINER curl -o GeForce-XorgDisplaySettingAuto_DP.sh https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/GeForce-XorgDisplaySettingAuto.sh
+    docker exec -it $CONTAINER curl -o GeForce-XorgDisplaySettingAuto_DP.sh https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-18.04-gnome-nomachine/GeForce-XorgDisplaySettingAuto.sh
     docker exec -it $CONTAINER chmod +x /home/GeForce-XorgDisplaySettingAuto_DP.sh
     docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto_DP.sh
     #docker exec -it $CONTAINER /home/GeForce-XorgDisplaySettingAuto.sh
