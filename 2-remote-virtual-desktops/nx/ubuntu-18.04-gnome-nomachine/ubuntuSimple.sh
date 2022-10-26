@@ -67,6 +67,14 @@ do
     read -p "输入内容为空，请重新输入:" RenderType
 done
 
+# 选择使用渲染显卡号
+echo "======Gpu渲染显卡选择======"
+read -p "请选择渲染显卡号（例:0 or 1 2 3 ...）:" NVIDIA_VISIBLE_DEVICES
+while test -z "$NVIDIA_VISIBLE_DEVICES"
+do
+    read -p "输入内容为空，请重新输入:" NVIDIA_VISIBLE_DEVICES
+done
+
 # 自动安装配置显卡驱动脚本
 # 判断；显卡类型，安装对应驱动程序
 echo "Tesla系列: V100 A100 ... | GeForce系列: 3090 2080 ..."
@@ -104,6 +112,7 @@ docker run -d \
     -e CreateUserAccount=$CreateUserAccount \
     -e RenderType=$RenderType \
     -e NvidiaDriver=$NvidiaDriver \
+    -e NVIDIA_VISIBLE_DEVICES$NVIDIA_VISIBLE_DEVICES \
     -v /sys/fs/cgroup:/sys/fs/cgroup \
     -v $WorkSpaceBind:/data \
     $IMAGE /sbin/init
