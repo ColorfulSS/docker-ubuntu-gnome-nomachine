@@ -38,7 +38,7 @@ if [ "$1" == "Gpu" ]; then
   echo "BUS_ID:"
   echo $BUSI_ID
   echo "......."
-  if [ "$NvidiaDriver" == "GeForce" ]; then
+  if [ "$3" == "GeForce" ]; then
         sudo nvidia-xconfig --virtual="${SIZEW}x${SIZEH}" --depth="$CDEPTH" --allow-empty-initial-configuration --busid="$BUS_ID" --no-multigpu --connected-monitor=DP-0
         echo -e "Section \"ServerFlags\"\n    Option \"AutoAddGPU\" \"false\"\nEndSection" | sudo tee -a /etc/X11/xorg.conf > /dev/null
   else
