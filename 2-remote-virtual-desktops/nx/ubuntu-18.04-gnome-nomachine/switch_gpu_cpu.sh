@@ -6,6 +6,19 @@ while test -z "$RenderType"
 do
     read -p "输入内容为空，请重新输入:" RenderType
 done
+
+read -p "GPU类型（例:GeForce/Tesla）:" NvidiaDriver
+while test -z "$NvidiaDriver"
+do
+    read -p "输入内容为空，请重新输入:" NvidiaDriver
+done
+
+read -p "GPU渲染卡号（例:0, 1, 2, 3...）:" NVIDIA_VISIBLE_DEVICES
+while test -z "$NVIDIA_VISIBLE_DEVICES"
+do
+    read -p "输入内容为空，请重新输入:" NVIDIA_VISIBLE_DEVICES
+done
+
 # 停止lightdm管理模块
 sudo /etc/init.d/lightdm stop
 
