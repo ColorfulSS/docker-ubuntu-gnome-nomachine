@@ -170,6 +170,10 @@ sudo apt-get install fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-
 # 下载切换渲染模式脚本：
 wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/switch_gpu_cpu.sh
 # 运行脚本，按照提示输入渲染模式：( Gpu/ Cpu )
+# 运行脚本，按照提示输入GPU类型：( GeForce/ Tesla )
+# 运行脚本，按照提示输入GPU卡号：( 0, 1, 2, 3 ... )
+# 注意：如从GPU切换至CPU同样需要输入GPU类型和GPU卡号，用于后续切换回GPU使用
+# 注意：GeForce系列显卡单卡只能创建一个Xorg进程，同时需要使用DP-0作为显示端口，因此如服务器多卡请寻找未创建Xorg进程的显卡号用于虚拟显示。Tesla系列目前未发现类似限制可多次创建。
 ./switch_gpu_cpu.sh
 ```
 
@@ -178,11 +182,11 @@ wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/
 # 下载切换Gpu卡脚本：
 wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/RenderGpuCard.sh
 # 运行脚本：
-./RenderGpuCard.sh $渲染模式 $ GPU卡号
-./RenderGpuCard.sh Gpu 0
-./RenderGpuCard.sh Gpu 1
-./RenderGpuCard.sh Gpu 2
-./RenderGpuCard.sh Gpu 3
+./RenderGpuCard.sh $渲染模式 $GPU卡号 $GPU类型（GeForce or Tesla）
+./RenderGpuCard.sh Gpu 0 GeForce
+./RenderGpuCard.sh Gpu 1 GeForce
+./RenderGpuCard.sh Gpu 2 GeForce
+./RenderGpuCard.sh Gpu 3 Tesla
 ```
 
 ### 3.本地镜像构建 （该部分与fadams/docker-gui项目一致）
