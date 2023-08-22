@@ -226,3 +226,36 @@ fadams/docker-gui项目对Ubuntu:18.04添加systemd及Dbus支持，使得dockers
 
 #### 3.3 运行镜像
 运行过程和2部分内容一致，请参考上述内容！ 同时项目制作中参考了三位大佬[https://github.com/fadams/] [https://github.com/ehfd] [https://github.com/gezp] 和若干教程指导，希望能够作为更好的远程办公和科研学习平台，制作镜像目的是实现和宿主机类似的dockers容器！感谢三位大佬的教程和指导！
+
+#### 3.4 cuda安装
+```bash
+# 以cuda 11.0为例
+# 访问cuda网站选择对应版本cuda
+Operating System: Linux
+Architecture: x86_64
+Distribution: Ubuntu
+Version: 18.04
+Installer Type: runfile(local)
+网站链接：https://developer.nvidia.com/cuda-11.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=runfilelocal
+注：如需cuda 1x.x请更换https://developer.nvidia.com/cuda-11.0-download-archive?为https://developer.nvidia.com/cuda-1x.x-download-archive?
+
+# 下载runfile文件
+wget http://developer.download.nvidia.com/compute/cuda/11.0.2/local_installers/cuda_11.0.2_450.51.05_linux.run
+
+# 运行runfile文件
+sudo sh cuda_11.0.2_450.51.05_linux.run
+注：请取消cuda安装过程中出现的Nvidia Driver安装选项，该选项会与容器内部驱动冲突
+
+# 配置环境变量
+Please make sure that
+ -   PATH includes /usr/local/cuda-11.0/bin
+ -   LD_LIBRARY_PATH includes /usr/local/cuda-11.0/lib64, or, add /usr/local/cuda-11.0/lib64 to /etc/ld.so.conf and run ldconfig as root
+
+# 测试cuda安装
+nvcc -V
+```
+#### 3.5 ros安装
+```bash
+# 访问鱼香ros获取安装脚本
+wget http://fishros.com/install -O fishros && . fishros
+```
