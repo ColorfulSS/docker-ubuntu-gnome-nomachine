@@ -124,6 +124,9 @@ echo "开始自动安装显卡驱动并配置虚拟显示器..."
 echo [ $NvidiaDriver == "Tesla" ]
 if [ $NvidiaDriver == "Tesla" ]
 then
+    #docker exec -it $CONTAINER /home/Tesla-XorgDisplaySettingAuto.sh
+    docker exec -it $CONTAINER curl -o Tesla-XorgDisplaySettingAuto.sh https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/refs/heads/master/2-remote-virtual-desktops/nx/ubuntu-20.04-gnome-nomachine/Tesla-XorgDisplaySettingAuto.sh
+    docker exec -it $CONTAINER chmod +x /home/Tesla-XorgDisplaySettingAuto.sh
     docker exec -it $CONTAINER /home/Tesla-XorgDisplaySettingAuto.sh
 elif [ $NvidiaDriver == "GeForce" ]
 then
