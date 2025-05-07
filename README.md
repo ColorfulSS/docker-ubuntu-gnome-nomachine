@@ -53,8 +53,6 @@ docker pull colorfulsky/ubuntu-gnome-nomachine:20.04
 ```bash
 方式1(脚本运行-推荐):  
 wget https://raw.githubusercontent.com/ColorfulSS/docker-ubuntu-gnome-nomachine/master/2-remote-virtual-desktops/nx/ubuntu-18.04-gnome-nomachine/ubuntuSimple.sh  
-# 如无法访问请使用如下链接  
-wget https://git.ustc.edu.cn/Colorful/file_download/-/raw/main/ubuntuSimple.sh
 # 增加可执行权限
 chmod +x ubuntuSimple.sh
 # 执行自动安装配置脚本 - 需要根据提示输入相关信息  
