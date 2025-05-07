@@ -9,7 +9,7 @@ if ! command -v nvidia-xconfig &> /dev/null; then
   export DRIVER_VERSION=$(head -n1 </proc/driver/nvidia/version | awk '{print $8}')
   BASE_URL=https://cn.download.nvidia.com/XFree86/Linux-x86_64
   cd /tmp
-  sudo curl -fsSL -O $BASE_URL/$DRIVER_VERSION/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run
+  sudo curl -fsSL -H "Referer: https://www.nvidia.cn/    " -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" -O $BASE_URL/$DRIVER_VERSION/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run
   sudo sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run -x
   cd NVIDIA-Linux-x86_64-$DRIVER_VERSION
   sudo ./nvidia-installer --silent \
