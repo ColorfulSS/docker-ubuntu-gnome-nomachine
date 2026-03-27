@@ -1,4 +1,4 @@
-# Ubuntu 18.04 20.04 with Gnome [Nomachine Desktop]
+# Ubuntu 18.04 20.04 with Gnome [Nomachine Desktop] 
 
 ## 参考资料Docker-GUI代码：
 基于该仓库ubuntu系列代码去除对宿主机X11的依赖
